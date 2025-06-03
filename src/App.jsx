@@ -7,13 +7,13 @@ const getTopStories = async () => {
   const response = await fetch(`${BASE_URL}/topstories.json`);
   const ids = await response.json();
 
-  // Fetch each item
+  //API call for Fetch each item
   const storyPromises = ids.map(id =>
     fetch(`${BASE_URL}/item/${id}.json`).then(res => res.json())
   );
 
   const stories = await Promise.all(storyPromises);
-  setTopStories(stories); //  // array of story objects
+  setTopStories(stories); // array of story objects
 };
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const getTopStories = async () => {
 
   return ( topStories.length > 0 ?
     <div className="p-4">
+      <h1 className="text-2xl font-bold">Hacker News Top Stories</h1>
       {topStories.map(story => (
         <p key={story.id} className="my-2"> - {story.title}</p>
       ))}
